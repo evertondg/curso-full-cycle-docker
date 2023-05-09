@@ -6,7 +6,6 @@ services:
     build: 
       context: node
     container_name: app
-    #command: npm install
     networks:
       - node-network
     volumes:
@@ -17,16 +16,15 @@ services:
 
   db:
     image: mysql:5.7
-    command: --innodb-use-native-aio=0 # precisa rodar caso nao funciona o mysql
+    command: --innodb-use-native-aio=0
     container_name: db
-    restart: always # Caso o container caia ele restarta automaticamente
-    tty: true # Caso precise entrar e digitar algo no container
+    restart: always
+    tty: true 
     volumes:
-      - ./mysql:/var/lib/mysql # Tudo que for salvo no container nesta pasta sera salvo na pasta mysql de nosso computador
-    environment: # Ao subir o ambiente o mysql usa estas variaveis de ambiente para configurar oque for necessário
+      - ./mysql:/var/lib/mysql
+    environment: 
       - MYSQL_DATABASE=nodedb
       - MYSQL_ROOT_PASSWORD=root
-      #- MYSQL_USER=root # No curso ele utiliza porém precisei retirar ela conforme é explicado em https://forum.code.education/forum/topico/mysql_userroot-mysql_user-and-mysql_password-are-for-configuring-a-regular-user-and-cannot-be-used-for-the-root-user-2883/
     networks:
       - node-network
 
